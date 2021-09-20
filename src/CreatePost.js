@@ -6,7 +6,7 @@ function CreatePost() {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
+        
         fetch('https://jsonplaceholder.typicode.com/posts', {
         method: 'POST',
         body: JSON.stringify({
@@ -20,13 +20,12 @@ function CreatePost() {
         })
         .then((response) => response.json())
         .then((json) => console.log(json));
-
     }
 
     return (
         <div className="createPost">
             <h1>Add new Post</h1>
-            <form onSubmit={handleSubmit}>
+            <form className="createForm" onSubmit={handleSubmit}>
                 <label>Title:</label>
                 <input
                     value={title}
@@ -36,7 +35,6 @@ function CreatePost() {
                 />
                 <label>Body:</label>
                 <input
-                    id="creatFormBody"
                     value={body}
                     type="text" 
                     required

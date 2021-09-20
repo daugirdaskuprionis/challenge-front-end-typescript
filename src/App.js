@@ -6,7 +6,7 @@ import Pagination from "./Pagination";
 
 function App() {
   const [posts, setPosts] = useState([]);
-  const [state, setState] = useState('home');
+  const [page, setPage] = useState('home');
   const [postId, setPostId] = useState(null);
   const [isLoading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -16,74 +16,72 @@ function App() {
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = posts.slice(indexOfFirstPost, indexOfLastPost);
-  const paginate = (pageNumber) => setCurrentPage(pageNumber); // switching pages
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
   
   useEffect(() => {
-    fetchData();
+    loadPosts();
   }, []);
 
-  const fetchData = () => {
-    setLoading(true);
-    fetch(`https://jsonplaceholder.typicode.com/posts/`)
-      .then(response => {
-        return response.json();
-      })
-      .then((posts) => {
-        setPosts(posts);
-        setLoading(false);
-        setError(null);
-      })
-      .catch((error) => {
-        setError(error.message);
-        setLoading(false);
-     })
+  const loadPosts = async () => {
+    try {
+      const loadPosts = await (await fetch(`https://jsonplaceholder.typicode.com/posts/`)).json();
+      setPosts(loadPosts);
+      setLoading(false);
+    } catch (error) {
+      setError(error);
+      setLoading(false);
+    }
   }
-
-  const handleState = (e, state) => {
+  
+  const handlePage = (e, page) => {
     e.preventDefault();
 
-    if (state == 'home') {
-      setState('home');
+    if (page === 'home') {
+      setPage('home');
+      setCurrentPage(1);
     }
 
-    if (state == 'post') {
+    if (page === 'post') {
       setPostId(Number(e.target.id));
-      setState('post');
+      setPage('post');
     }
 
-    if (state == 'createpost') {
-      setState('createpost');
+    if (page === 'createpost') {
+      setPage('createpost');
     }
   }
 
   return (
       <div className="container">
           <div className="nav">
-            <a href="#" onClick={(e) => handleState(e, 'home')}>Home</a>
-            <a href="#" onClick={(e) => handleState(e, 'createpost')}>Create Post</a>
+            <a href="#" onClick={(e) => handlePage(e, 'home')}>Home</a>
+            <a href="#" onClick={(e) => handlePage(e, 'createpost')}>Create Post</a>
           </div>
           
-          { isLoading && <div>Loading...</div> }
-          { error && <div>{ error }</div> }
-
-          { state === 'home' ?
-          <div>
-            <ul>
-            { currentPosts.map(post => (
-              <li className="post" key={post.id}>
-                <a className="titlePost" onClick={(e) => handleState(e, 'post')} id={`${post.id}`} href={`${post.id}`}>{post.title}</a>
-                <p>{post.body}</p>
-              </li>
-              ))
-            }
-            </ul>
-            <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate} currentPage={currentPage} />
-          </div> 
-          : null
+          <div className="infoMessage">
+            { isLoading && <div>Loading...</div> }
+            { error && <div>{ error }</div> }
+          </div>
+      
+          { page === 'home' ?
+            <div>
+              <h1>Posts</h1>
+              <ul>
+              { currentPosts.map(post => (
+                <li className="post" key={post.id}>
+                  <a className="titlePost" onClick={(e) => handlePage(e, 'post')} id={`${post.id}`} href={`${post.id}`}>{post.title}</a>
+                  <p>{post.body}</p>
+                </li>
+                ))
+              }
+              </ul>
+              <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate} currentPage={currentPage} />
+            </div> 
+            : null
           }
-
-          { state === 'post' ? <Post posts={posts} postId={postId} /> : null }
-          { state === 'createpost' ? <CreatePost posts={posts} /> : null}
+  
+          { page === 'post' ? <Post posts={posts} postId={postId} /> : null }
+          { page === 'createpost' ? <CreatePost posts={posts} /> : null}
       </div>
   );
 }

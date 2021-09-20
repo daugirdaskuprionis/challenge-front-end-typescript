@@ -3,42 +3,80 @@ body {
 }
 
 .container {
-    max-width: 1200px;
+    max-width: 1100px;
     margin: 0 auto;
 }
 
 ul {
     list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
 .nav {
     display: flex;
     justify-content: center;
+    margin-top: 2rem;
 }
 
 .nav a {
     margin-right: 20px;
+    text-decoration: none;
+}
+
+.infoMessage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.25em;
 }
 
 .post {
-    background-color: rgba(0, 0, 0, 0.068);
+    background-color: rgba(0, 0, 0, 0.010);
     border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.068);
     padding: 20px;
-    margin: 1rem 0;
+    margin: 2rem 0;
+}
+
+.userIdAlign {
+    display: flex;
+    justify-content: space-between;
+}
+
+.userPostId {
+    color:rgba(0, 0, 0, 0.555);
 }
 
 .createPost {
-    max-width: 500px;
-    margin: 50px auto;
+    border-radius: 5px;
+    margin: 2rem auto;
+    max-width: 600px;
+}
+
+.createForm {
+    background-color: rgba(0, 0, 0, 0.010);
+    border: 1px solid rgba(0, 0, 0, 0.068);
+    padding: 20px;
 }
 
 .singlePost {
+    background-color: rgba(0, 0, 0, 0.010);
+    border-radius: 5px;
+    border: 1px solid rgba(0, 0, 0, 0.068);
+    padding: 20px;
     max-width: 900px;
-    margin: 50px auto;
+    margin: 2rem auto;
 }
 
 .titlePost {
     font-size: 1.25em;
+    text-decoration: none;
+}
+
+.post:hover {
+    border: 1px solid rgba(0, 0, 0, 0.103);
 }
 
 .selected {
@@ -59,4 +97,24 @@ input[type=text] {
 
 .pagination li {
     margin-right: 5px;
+    margin-bottom: 2rem;
+}
+
+.pageNumber {
+    text-decoration: none;
+}
+
+button {
+    background-color: #04487c; /* Green */
+    border: none;
+    color: white;
+    padding: 10px 25px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #1b649b;
+    cursor: pointer;
 }

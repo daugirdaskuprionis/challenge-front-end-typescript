@@ -59,10 +59,7 @@ function Post({ posts, postId }) {
                 'Content-type': 'application/json; charset=UTF-8',
             },
             }).then((response) => response.json())
-                .then(() => {
-                    setPost(editedPost);
-                    console.log(editedPost);
-                });
+                .then(() => console.log(editedPost));
         
         setPost(editedPost);
         setEditId(null);
@@ -72,12 +69,16 @@ function Post({ posts, postId }) {
         <div className="singlePost">
             { editPostId !== postId ?
             <div>
-                <button onClick={(e) => handleEditClick(e)}>Edit</button>
+                <div className="userIdAlign">
+                    <button onClick={(e) => handleEditClick(e)}>Edit</button>
+                    <p className="userPostId">User: {post.userId}</p>
+                </div>
                 <p className="titlePost">{post.title}</p>
                 <p>{post.body}</p>
             </div>
                 : 
             <form onSubmit={handleEditFormSubmit}>
+                <p className="userPostId">User: {post.userId}</p>
                 <label>Title:</label>
                 <input name="title" type="text" required value={editFormData.title} onChange={handleEditFormChange} />
                 <label>Body:</label>
