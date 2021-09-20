@@ -27,10 +27,22 @@ ul {
     margin: 1rem 0;
 }
 
-.createPost, .singlePost {
-    margin-top: 80px;
+.createPost {
     max-width: 500px;
-    margin: 0 auto;
+    margin: 50px auto;
+}
+
+.singlePost {
+    max-width: 900px;
+    margin: 50px auto;
+}
+
+.titlePost {
+    font-size: 1.25em;
+}
+
+.selected {
+    font-weight: 600;
 }
 
 input[type=text] {

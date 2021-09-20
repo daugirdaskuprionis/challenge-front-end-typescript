@@ -71,12 +71,13 @@ function App() {
             <ul>
             { currentPosts.map(post => (
               <li className="post" key={post.id}>
-                <a onClick={(e) => handleState(e, 'post')} id={`${post.id}`} href={`${post.id}`}>{post.title}</a>
+                <a className="titlePost" onClick={(e) => handleState(e, 'post')} id={`${post.id}`} href={`${post.id}`}>{post.title}</a>
+                <p>{post.body}</p>
               </li>
               ))
             }
             </ul>
-            <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate} />
+            <Pagination postsPerPage={postsPerPage} totalPosts={posts.length} paginate={paginate} currentPage={currentPage} />
           </div> 
           : null
           }

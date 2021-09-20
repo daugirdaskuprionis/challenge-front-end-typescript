@@ -73,7 +73,7 @@ function Post({ posts, postId }) {
             { editPostId !== postId ?
             <div>
                 <button onClick={(e) => handleEditClick(e)}>Edit</button>
-                <p>{post.title}</p>
+                <p className="titlePost">{post.title}</p>
                 <p>{post.body}</p>
             </div>
                 : 
